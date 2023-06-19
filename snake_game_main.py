@@ -3,6 +3,8 @@ import time
 from snake_game_utils import make_screen, make_turtle_object, move_food, add_new_tail, move, reset
 
 snake_body = []
+score = 0
+high_score = 0
 
 
 def go_up():
@@ -36,6 +38,10 @@ food = make_turtle_object("circle", "red")
 food.shapesize(0.7, 0.7)
 move_food(food)
 
+score_turtle = make_turtle_object("square", "white")
+score_turtle.goto(0, 260)
+score_turtle.ht()
+
 
 win.listen()
 win.onkey(go_up, "Up")
@@ -46,8 +52,11 @@ win.onkey(go_left, "Left")
 
 while True:
     win.update()
-
+    score_turtle.clear()
+    score_turtle.write(
+        f"Score: {score}, high score: {high_score}", align="center", font=48)
     if head.distance(food) < 17:
+        score += 1
         move_food(food)
         add_new_tail(snake_body)
 
@@ -63,11 +72,11 @@ while True:
 
     if head.xcor() > 290 or head.xcor() < -290 or head.ycor() > 290 or head.ycor() < -290:
         reset(head, snake_body)
-
-    # TODO   add score and high score
-    # TODO در لبه های صفحه خط کشیده شود
-    # TODO برخورد مار به بدنش 
-
+        # TODO درست کردن بیشترین امتیاز
 
     move(head)
+    for body in snake_body:
+        if body.distance(head) < 20:
+            reset(head, snake_body)
+            score = 0
     time.sleep(0.2)

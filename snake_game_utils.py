@@ -49,6 +49,7 @@ def move(head):
 
 
 def reset(head, snake_body):
+
     head.goto(0, 0)
     head.direction = "none"
     for body in snake_body:
