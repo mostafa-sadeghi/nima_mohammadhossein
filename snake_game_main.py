@@ -1,4 +1,3 @@
-
 import time
 from snake_game_utils import make_screen, make_turtle_object, move_food, add_new_tail, move, reset
 
@@ -27,10 +26,10 @@ def go_down():
         head.direction = "down"
 
 
-win = make_screen()
+win = make_screen("Snake Game", "black", 600, 600)
 win.tracer(0)
 
-head = make_turtle_object("square", "black")
+head = make_turtle_object("square", "blue")
 head.direction = "none"
 
 
@@ -59,6 +58,8 @@ while True:
         score += 1
         move_food(food)
         add_new_tail(snake_body)
+    if score > high_score:
+        high_score = score
 
     for i in range(len(snake_body) - 1, 0, -1):
         x_prev_i = snake_body[i-1].xcor()
@@ -72,7 +73,7 @@ while True:
 
     if head.xcor() > 290 or head.xcor() < -290 or head.ycor() > 290 or head.ycor() < -290:
         reset(head, snake_body)
-        # TODO درست کردن بیشترین امتیاز
+        score = 0
 
     move(head)
     for body in snake_body:

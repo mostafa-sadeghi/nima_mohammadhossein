@@ -2,14 +2,14 @@ from random import randint
 import turtle
 
 
-def make_screen():
+def make_screen(title, color, w, h):
     """
     This function is used for making a surface
     """
     win = turtle.Screen()
-    win.title("Snake Game")
-    win.bgcolor("blue")
-    win.setup(width=600, height=600)
+    win.title(title)
+    win.bgcolor(color)
+    win.setup(width=w, height=h)
     return win
 
 
